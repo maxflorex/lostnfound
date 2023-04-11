@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&display=swap');
+@import 'variables';
+@import 'mixins';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 0.2s ease-in-out;
+}
+
+body {
+    background-color: $purpleOff;
+    font-family: 'Sora', sans-serif;
+}
+
+h1 {
+    font-size: 5rem;
+    font-weight: 800;
+}
+
+h2 {
+    font-size: 4rem;
+    font-weight: 800;
+}
+
+h3 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h5 {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+p {
+    font-size: 0.6rem;
+    font-weight: 400;
+}
+
+button {
+    background-color: $orange;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    font-size: 0.6rem;
+    color: white;
+
+    &:focus {
+        background-color: green;
+    }
+
+    &:hover {
+        padding: 1rem 1.4rem;
+    }
+}
+
+ul {
+    @include flexbox(row, flex-start, center, wrap);
+    gap: 1rem;
+    list-style: none
+}
+
+.flex {
+    @include flexbox(row, flex-start, flex-start, wrap);
+}
+
+.content {
+    flex: 1;
+    background-color: $purpleOff;
+    @include flexbox(column, flex-start, flex-start, wrap);
+    padding: 0 3rem;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.main {
+    min-height: 100vh;
+    height: 100%;
+    flex: 1;
+    @include flexbox(column, space-between, center, wrap);
+}

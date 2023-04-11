@@ -1,0 +1,14 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.footer {
+    background-color: $blue;
+    width: 100%;
+    @include flexbox(row, center, center, wrap);
+    color: $purple;
+    box-sizing: border-box;
+}
+
+.txt {
+    padding: 0.4rem;
+}

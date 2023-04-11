@@ -1,0 +1,9 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.topBar {
+    height: 9rem;
+    width: 100%;
+    @include flexbox(row, space-between, center, wrap);
+    // border-bottom: 2px solid $purple;
+}

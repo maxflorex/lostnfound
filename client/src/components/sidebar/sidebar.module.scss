@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.sidebar {
+    width: 6rem;
+    background-color: $orange;
+    height: 100vh;
+    color: $purple;
+    @include flexbox(column, space-between, center, wrap);
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+}
+
+.columnTop {
+    @include flexbox(column, center, center, wrap);
+    gap: 0.4rem
+}
+
+.columnButton {
+    @include flexbox(column, center, center, wrap);
+    gap: 2rem
+}
