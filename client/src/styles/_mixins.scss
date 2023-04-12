@@ -5,3 +5,33 @@
     align-items: $align;
     flex-wrap: $wrap;
 }
+
+@mixin screen-xs {
+    @media (max-width: 639px) {
+        @content;
+    }
+}
+
+@mixin screen-sm {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin screen-md {
+    @media (max-width: 1023px) {
+        @content;
+    }
+}
+
+@mixin screen-lg {
+    @media (max-width: 1279px) {
+        @content;
+    }
+}
+
+@mixin screen-xl {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}

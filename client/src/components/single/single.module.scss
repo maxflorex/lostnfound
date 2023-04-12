@@ -1,0 +1,99 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.singleContainer {
+    @include flexbox(row, space-between, center, wrap);
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.4rem;
+
+    @include screen-lg {
+        @include flexbox(column, space-between, center, wrap);
+    }
+}
+
+.leftBlockParent {
+    @include flexbox(row, flex-start, flex-start, wrap);
+    border-radius: 0.4rem;
+    gap: 2rem;
+    
+
+
+    @include screen-lg {
+        gap: 1rem;
+        width: 100%;
+
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.leftBlock {
+    @include flexbox(column, space-between, flex-start, wrap);
+    min-height: 12rem;
+    padding: 2rem 0;
+
+    span {
+        background-color: $purpleOff;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.4rem;
+        margin-left: 1rem;
+
+        i {
+            padding-right: 0.2rem;
+        }
+    }
+
+    @include screen-lg {
+        gap: 1rem;
+        @include flexbox(column, center, flex-start, wrap);
+        flex: 1
+    }
+}
+
+.rightBlockParent {
+    @include flexbox(row, flex-start, flex-start, wrap);
+    border-radius: 0.4rem;
+    gap: 2rem;
+    min-height: 10rem;
+    background-color: $purpleOff;
+
+    @include screen-lg {
+        width: 100%;
+    }
+}
+
+.rightBlock {
+    height: 100%;
+    @include flexbox(column, center, flex-start, wrap);
+    gap: 0.4rem;
+    width: 10rem;
+    border: 2px solid $purpleOff;
+    border-radius: 0.4rem;
+    padding: 2rem;
+
+    h5 {
+        font-weight: 800;
+        border-bottom: 2px solid $purpleOff;
+        padding-bottom: 0.2rem;
+        width: 100%;
+        margin-bottom: 0.1rem;
+    }
+
+    @include screen-lg {
+        width: 100%;
+    }
+}
+
+.picture {
+    width: 14rem;
+    height: 12rem;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 0.4rem;
+
+    @include screen-md {
+        width: 100%;
+    }
+}

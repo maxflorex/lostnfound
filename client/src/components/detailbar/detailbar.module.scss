@@ -2,12 +2,21 @@
 @import '../../styles/mixins';
 
 .bar {
-    background-color: white;
     width: 20rem;
     height: 100vh;
-    color: $blue;
-    @include flexbox(column, space-between, center, wrap);
+    @include flexbox(column, flex-start, center, wrap);
     box-sizing: border-box;
+    position: relative;
+    background-color: white;
+    position: sticky;
+    top: 0;
+
+    @include screen-sm {
+        // display: none;
+        position: static;
+        width: 100%;
+        height: auto;
+    }
 }
 
 .searchContainer {
@@ -31,10 +40,61 @@
             outline: none;
             background-color: $purpleOff;
         }
-    }
 
-    label {
-        font-size: 0.6rem;
+        &::placeholder {
+            color: $purple;
+            font-size: 0.6rem;
+        }
+    }
+}
+
+.categories {
+    width: 100%;
+    padding: 2rem;
+    @include flexbox(column, flex-start, flex-start, wrap);
+    gap: 0.6rem;
+
+    ul {
+        font-size: 0.8rem;
         font-weight: 800;
     }
+
+    li {
+        font-size: 0.8rem;
+        cursor: pointer;
+        color: $purple;
+
+        &:hover {
+            color: $orange;
+        }
+
+        i {
+            padding-right: 0.4rem;
+        }
+    }
+
+    @include screen-sm {
+        @include flexbox(row, flex-start, flex-start, wrap);
+        gap:1rem
+    }
+}
+
+.close {
+    background-color: $purple;
+    padding: 0.4rem 0.5rem;
+    border-radius: 1rem;
+    position: absolute;
+    right: -1rem;
+    top: 8rem;
+    cursor: pointer;
+}
+
+.translate {
+    transform: translateX(-20rem);
+    transition: transform 1s ease;
+}
+
+.highlight {
+    color: $blue !important;
+    font-weight: 700;
 }

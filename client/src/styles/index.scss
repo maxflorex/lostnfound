@@ -12,6 +12,7 @@
 body {
     background-color: $purpleOff;
     font-family: 'Sora', sans-serif;
+    color: $blue;
 }
 
 h1 {
@@ -45,38 +46,42 @@ p {
 }
 
 button {
-    background-color: $orange;
-    padding: 0.6rem 1rem;
+    background-color: $blue;
+    padding: 0.8rem 1.6rem;
     border: none;
     border-radius: 0.4rem;
     font-weight: 600;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     color: white;
 
-    &:focus {
-        background-color: green;
-    }
-
     &:hover {
-        padding: 1rem 1.4rem;
+        background-color: $orange;
     }
 }
 
 ul {
     @include flexbox(row, flex-start, center, wrap);
     gap: 1rem;
-    list-style: none
+    list-style: none;
+}
+
+label {
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding-left: 0.6rem;
 }
 
 .flex {
     @include flexbox(row, flex-start, flex-start, wrap);
 }
 
+.flex-column {
+    @include flexbox(column, flex-start, flex-start, wrap);
+}
+
 .content {
     flex: 1;
-    background-color: $purpleOff;
     @include flexbox(column, flex-start, flex-start, wrap);
-    padding: 0 3rem;
     width: 100vw;
     box-sizing: border-box;
 }
@@ -85,5 +90,20 @@ ul {
     min-height: 100vh;
     height: 100%;
     flex: 1;
-    @include flexbox(column, space-between, center, wrap);
+
+    form {
+        @include flexbox(column, space-between, flex-start, wrap);
+    }
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $blue;
+    @include flexbox(column, center, center, wrap);
+    color: white;
+    z-index: 999;
 }

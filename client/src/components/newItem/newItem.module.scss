@@ -1,0 +1,35 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.form {
+padding: 2rem 0;
+width: 20rem;
+@include flexbox(column, flex-start, flex-start, wrap);
+gap: 1.6rem;
+
+    input {
+        border: 2px solid $purpleOff;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        width: 100%;
+        padding: 0.4rem;
+
+        &:focus {
+            border: 2px solid transparent;
+            stroke: none;
+            outline: none;
+            background-color: WHITE;
+        }
+
+        &::placeholder {
+            color: $purple;
+            font-size: 0.6rem;
+        }
+    }
+}
+
+.group {
+    @include flexbox(column, flex-start, flex-start, wrap);
+    gap: 0.4rem;
+    width: 100%;
+}

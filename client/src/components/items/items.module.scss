@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.itemGroup {
+    padding: 3rem 3rem;
+    border-top: 2px solid $purpleOff;
+    width: 100%;
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+}
