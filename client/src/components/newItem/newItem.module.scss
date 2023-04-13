@@ -2,23 +2,27 @@
 @import '../../styles/mixins';
 
 .form {
-padding: 2rem 0;
-width: 20rem;
-@include flexbox(column, flex-start, flex-start, wrap);
-gap: 1.6rem;
+    padding: 3rem;
+    margin: 4rem 0;
+    width: 20rem;
+    @include flexbox(column, flex-start, flex-start, wrap);
+    border-radius: 0.4rem;
+    width: 32rem;
+    border: 2px solid $blue;
+    position: relative;
 
     input {
         border: 2px solid $purpleOff;
         border-radius: 0.4rem;
         font-size: 1rem;
+        padding: 0.8rem;
         width: 100%;
-        padding: 0.4rem;
 
         &:focus {
             border: 2px solid transparent;
             stroke: none;
             outline: none;
-            background-color: WHITE;
+            background-color: $purpleOff;
         }
 
         &::placeholder {
@@ -26,10 +30,97 @@ gap: 1.6rem;
             font-size: 0.6rem;
         }
     }
+
+    label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $blue;
+        padding-bottom: 0.4rem;
+
+        &:not(:first-child) {
+            padding-top: 1.2rem;
+        }
+    }
+
+    img {
+        border-radius: 0.4rem;
+        // width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    button {
+        margin-top: 2rem;
+        width: 100%;
+    }
 }
 
-.group {
-    @include flexbox(column, flex-start, flex-start, wrap);
+.title {
+    margin-bottom: 2rem;
+    @include flexbox(row, center, center, wrap);
     gap: 0.4rem;
+    color: $blue;
     width: 100%;
+    background-color: $purpleOff;
+    padding: 2rem;
+    border-radius: 0.4rem;
+}
+
+.dropdown {
+    border: 2px solid $purpleOff;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    option {
+        color: $blue;
+        font-size: 14px;
+        padding: 2rem;
+    }
+}
+
+.upload {
+    display: none;
+}
+
+.formParent {
+    width: 100%;
+    @include flexbox(row, center, center, wrap);
+    border-left: 2px solid $purpleOff;
+    background-color: white;
+}
+
+.uploadImage {
+    @include flexbox(column, flex-start, center, wrap);
+
+    i {
+        padding: 1rem;
+        background-color: $orange;
+        color: white;
+        margin-top: 1rem;
+        border-radius: 0.4rem;
+        cursor: pointer;
+    }
+}
+
+.close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: white;
+    border-radius: 0.4rem;
+    cursor: pointer;
+
+    &:hover {
+        color: $orange;
+    }
 }

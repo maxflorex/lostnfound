@@ -69,3 +69,7 @@
         @include flexbox(row, flex-end, center, wrap);
     }
 }
+
+.faqParent {
+    position: relative;
+}

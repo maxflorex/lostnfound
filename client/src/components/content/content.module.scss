@@ -43,6 +43,16 @@
 .sort {
     @include flexbox(row, center, center, wrap);
     gap: 1rem;
+
+    span {
+        @include flexbox(row, center, center, wrap);
+        gap: 0.4rem;
+        cursor: pointer;
+
+        &:hover {
+            color: $orange
+        }
+    }
 }
 
 .searchIcon {

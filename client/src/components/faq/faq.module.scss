@@ -1,0 +1,57 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.box {
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    background-color: $purple;
+    color: $blue;
+    top: -6em;
+    right: -9rem;
+    border-radius: 0.4rem;
+    @include flexbox(column, center, center, wrap);
+    gap: 0.4rem;
+
+    h6 {
+        font-weight: 400;
+    }
+
+    h5 {
+        text-decoration: underline;
+        text-underline-offset: 0.4rem;
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 1rem 1rem 0;
+        border-color: black $purple transparent transparent; /* adjust the color to match the background color of the box */
+    }
+}
+
+.close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    // background-color: white;
+    border-radius: 4rem;
+    cursor: pointer;
+    color: $blue;
+
+    &:hover {
+        color: $orange;
+    }
+}
+
+.arrow {
+    color: $purple;
+    position: absolute;
+    bottom: 0;
+    left: -1.8rem;
+}

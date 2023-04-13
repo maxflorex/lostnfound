@@ -7,12 +7,13 @@ type Props = {}
 
 const Content = (props: Props) => {
 
-    const [addNew, setAddNew] = useState(false)
+    const [addNew, setAddNew] = useState(false);
+    const [sortAsc, setSortAsc] = useState(true);
+
 
     const openModal = (e: any) => {
         e.preventDefault();
-        setAddNew(true);
-        document.body.style.overflow = 'hidden'
+        setAddNew(!addNew);
     };
 
     return (
@@ -29,9 +30,10 @@ const Content = (props: Props) => {
                         <li><i className="ri-arrow-right-s-line"></i></li>
                         <li>Main</li>
                     </ul>
-                    <button onClick={openModal}>ADD NEW</button>
+                    <button onClick={openModal}>{addNew ? "CLOSE FORM" : "ADD NEW"}</button>
                 </div>
 
+                {addNew && <NewItemModal setAddNew={setAddNew} />}
 
                 {/* MAIN CONTENT */}
                 <div className={styles.searchSort}>
@@ -43,16 +45,17 @@ const Content = (props: Props) => {
                     </div>
                     <div className={styles.sort}>
                         <div className="flex">
-                            <h5>Name</h5>
-                            <i className="ri-arrow-down-line"></i>
+                            <span onClick={() => setSortAsc(!sortAsc)}>
+                                <h5>Name</h5>
+                                <i className={sortAsc ? "ri-arrow-down-line" : "ri-arrow-up-line"}></i>
+                            </span>
                         </div>
                         <i className="ri-layout-row-line"></i>
                     </div>
                 </div>
 
-                <Items />
+                <Items sortAsc={sortAsc} />
             </div>
-            {addNew && <NewItemModal setAddNew={setAddNew} />}
         </>
 
     )

@@ -22,11 +22,11 @@ const Single = ({ data }: Props) => {
 	return (
 		<>
 			{data.map((itemData, i) => {
-				return <div className={styles.singleContainer}>
+				return <div key={i} className={styles.singleContainer}>
 
 
 					<div className={styles.leftBlockParent}>
-						<img src={itemData.picture} alt="Item"  className={styles.picture}/>
+						<img src={itemData.picture} alt="Item" className={styles.picture} />
 						<div className={styles.leftBlock}>
 							<div className="flex-column">
 								<h6>{itemData.category}</h6>

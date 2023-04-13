@@ -17,7 +17,7 @@
         font-size: 1rem;
         padding: 0.8rem;
         width: 100%;
-        margin-top: 1rem;
+        margin-bottom: 0.6rem;
 
         &:focus {
             border: 2px solid transparent;
@@ -39,7 +39,7 @@
         padding-bottom: 0.4rem;
 
         &:not(:first-child) {
-            padding-top: 1.2rem;
+            margin-top: 1.2rem;
         }
     }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { categories } from '../../assets/misc'
 import styles from './detailbar.module.scss'
 
 type Props = {
@@ -7,8 +8,6 @@ type Props = {
 }
 
 const DetailBar = ({ setHideBar, hideBar }: Props) => {
-
-    const categories = ['ALL', 'HOME', 'ENTERTAINMENT', 'CLOTHING', 'FAMILY', 'ELECTRONICS', 'HOBBIES', 'MISCELLANEOUS', 'VEHICLES']
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredCategories, setFilteredCategories] = useState(categories);
