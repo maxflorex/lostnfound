@@ -42,7 +42,7 @@ const Sidebar = ({ setHideBar, hideBar }: Props) => {
 			clearTimeout(timeoutId);
 		};
 	}, [openFaq]);
-
+	
 	return (
 		<>
 			<section className={styles.sidebar}>

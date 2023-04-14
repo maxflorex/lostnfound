@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { categories } from '../../assets/misc'
-import { getCategory } from '../../redux/FilteredCategoryslices'
+import { getCategory } from '../../redux/slices/FilteredCategoryslices'
 import styles from './detailbar.module.scss'
 
 type Props = {

@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { FilteredCategorySlice } from "./FilteredCategoryslices";
-import { UserSlice } from "./UserSlice";
+import { FilteredCategorySlice } from "./slices/FilteredCategoryslices";
+import { UserSlice } from "./slices/UserSlice";
 
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../../redux/UserSlice';
+import { signIn } from '../../redux/slices/UserSlice';
 import Signup from '../signup/signup';
 import styles from './login.module.scss'
 import { login } from '../../api/api';
@@ -23,9 +23,10 @@ const Login = ({ setShowLogin }: Props) => {
 			alert('Do not leave empty fields')
 		} else {
 			login(email, password).then((res) => {
-				dispatch(signIn({ email: res.email, name: res.name }))
+				dispatch(signIn({ email: res.email, name: res.name, id: res._id }))				
 			}).catch((err) => {
 				console.log(err);
+				alert('Something went wrong! 😥 Try again')
 			})
 		}
 
@@ -37,7 +38,7 @@ const Login = ({ setShowLogin }: Props) => {
 			setShowLogin(false);
 			document.body.style.overflow = 'auto'
 		}
-	};
+	};	
 
 	return (
 		<div className='modal dismiss' onClick={closeModal}>

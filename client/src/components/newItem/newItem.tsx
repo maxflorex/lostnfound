@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { categories } from '../../assets/misc';
 import styles from './newItem.module.scss'
+import { useSelector } from 'react-redux';
+import { createItem } from '../../api/api';
+import axios from 'axios';
 
 type Props = {
 	setAddNew: any
 }
 
 const NewItemModal = ({ setAddNew }: Props) => {
+	const user = useSelector((state: any) => state.user.value)
+	const [selectedPicture, setSelectedPicture] = useState(null);
+
 
 	const closeModal = (e: any) => {
 		if (e.target.classList.contains('dismiss')) {
@@ -14,6 +20,7 @@ const NewItemModal = ({ setAddNew }: Props) => {
 			document.body.style.overflow = 'auto'
 		}
 	};
+
 
 	const [formData, setFormData] = useState({
 		title: "",
@@ -25,8 +32,9 @@ const NewItemModal = ({ setAddNew }: Props) => {
 		when: "",
 		picture: null,
 		status: "",
-		contact: ""
+		contact: user.email
 	});
+
 
 	const handleChange = (event: any) => {
 		const { name, value } = event.target;
@@ -46,22 +54,33 @@ const NewItemModal = ({ setAddNew }: Props) => {
 		}
 	};
 
-	const handlePictureChange = (event: any) => {
-		const file = event.target.files[0];
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = () => {
-			setFormData((prevData: any) => ({
+	const handlePictureChange = (e: any) => {
+		const file = e.target.files[0]
+		const formData = new FormData()
+		formData.append('file', file)
+		formData.append('upload_preset', import.meta.env.VITE_PRESET_KEY)
+		axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`, formData)
+			.then((res: any) => setFormData((prevData: any) => ({
 				...prevData,
-				picture: reader.result,
-			}));
-		};
-	};
+				picture: res.data.secure_url,
+			})))
+			.catch((err: any) => console.log(err))
+	}
 
 	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		console.log(formData);
+		createItem(formData).then((res) => {
+			console.log('New item was added 🥳');
+
+		}).catch((err) => {
+			alert('Something went wrong!')
+			console.log(err);
+		}).finally(() => {
+			setAddNew(false);
+			document.body.style.overflow = 'auto'
+		})
 	};
+
 
 	return (
 		<div className={styles.formParent} onClick={closeModal}>
@@ -84,6 +103,14 @@ const NewItemModal = ({ setAddNew }: Props) => {
 					onChange={handleChange}
 					required
 				/>
+
+				<label htmlFor="category">Category:</label>
+				<select id="category" name="category" value={formData.category} onChange={handleChange} required className={styles.dropdown}>
+					<option value="">Select a category</option>
+					{categories.map((category) => (
+						<option value={category} key={category}>{category}</option>
+					))}
+				</select>
 
 				<label htmlFor="city">City:</label>
 				<input
@@ -146,25 +173,6 @@ const NewItemModal = ({ setAddNew }: Props) => {
 					<option value="">Select a status</option>
 					<option value="LOST">Lost</option>
 					<option value="FOUND">Found</option>
-				</select>
-
-				<label htmlFor="contact">Contact:</label>
-				<input
-					aria-autocomplete='none'
-					type="tel"
-					id="contact"
-					name="contact"
-					value={formData.contact}
-					onChange={handleChange}
-					required
-				/>
-
-				<label htmlFor="category">Category:</label>
-				<select id="category" name="category" value={formData.category} onChange={handleChange} required className={styles.dropdown}>
-					<option value="">Select a category</option>
-					{categories.map((category) => (
-						<option value={category} key={category}>{category}</option>
-					))}
 				</select>
 
 				<button type="submit">Submit</button>

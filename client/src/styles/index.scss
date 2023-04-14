@@ -57,6 +57,7 @@ button {
     font-weight: 600;
     font-size: 0.8rem;
     color: white;
+    cursor: pointer;
 
     &:hover {
         background-color: $orange;

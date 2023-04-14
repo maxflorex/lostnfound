@@ -1,7 +1,7 @@
 import { Action } from '@remix-run/router'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { signOut } from '../../redux/UserSlice'
+import { signOut } from '../../redux/slices/UserSlice'
 import Actions from '../actions/actions'
 import styles from './profile.module.scss'
 import ProfileActions from '../profileActions/profileActions'
@@ -78,7 +78,7 @@ const Profile = ({ setShowLogin }: Props) => {
             </table>
 
             {openActions !== '' && <Actions closeModal={closeModalAction} openActions={openActions} />}
-            {openActionsPro !== '' && <ProfileActions closeModal={closeModalAction} openActionsPro={openActionsPro} />}
+            {openActionsPro !== '' && <ProfileActions closeModal={closeModalAction} openActionsPro={openActionsPro} setOpenActionsPro={setOpenActionsPro} setShowLogin={setShowLogin} />}
 
 
             <div className={styles.danger}>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './signup.module.scss'
 import { createUser } from '../../api/api';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../../redux/UserSlice';
+import { signIn } from '../../redux/slices/UserSlice';
 
 type Props = {
     setSigningUp: any,
@@ -33,7 +33,7 @@ function Signup({ setSigningUp, setShowLogin }: Props) {
             alert('Passwords do not match!')
         } else {
             await createUser({ name: name, email: email, password: password }).then((res: any) => {
-                dispatch(signIn({ name: res.name, email: res.email }))
+                dispatch(signIn({ name: res.name, email: res.email, id: res._id }))
             }).finally(() => {
                 setShowLogin(false);
                 document.body.style.overflow = 'auto'

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 type User = {
     email: string
     name: string
+    id: string | null
 }
 
 // STATE TS VALUES
@@ -11,7 +12,7 @@ interface UserState {
 }
 
 // INITIAL STATE
-const InitialState = { value: { email: '', name: ''} } as UserState
+const InitialState = { value: { email: '', name: '', id: null} } as UserState
 
 // CREATE SLICE
 export const UserSlice = createSlice({

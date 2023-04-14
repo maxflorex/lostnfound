@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { categories, fakeData, Item } from '../../assets/misc'
-import { defaultCategory } from '../../redux/FilteredCategoryslices'
+import { defaultCategory } from '../../redux/slices/FilteredCategoryslices'
 import Items from '../items/items'
 import NewItemModal from '../newItem/newItem'
 import styles from './content.module.scss'

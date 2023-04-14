@@ -36,7 +36,7 @@ export class Item {
     where: Place
 
     @Prop()
-    when: string
+    when: Date
 
     @Prop()
     picture: string
