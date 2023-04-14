@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Faq from '../faq/faq'
 import Login from '../login/login'
+import Profile from '../profile/profile'
 import styles from './sidebar.module.scss'
 
 type Props = {
@@ -10,12 +12,19 @@ type Props = {
 
 const Sidebar = ({ setHideBar, hideBar }: Props) => {
 
-	const [showLogin, setShowLogin] = useState(false)
+	const [showLogin, setShowLogin] = useState('')
 	const [openFaq, setOpenFaq] = useState(false)
+	const user = useSelector((state: any) => state.user.value)
+	const dispatch = useDispatch()
 
 	const openModal = (e: any) => {
 		e.preventDefault();
-		setShowLogin(true);
+		if (user.email === '') {
+			setShowLogin('noAuth');
+		} else {
+			setShowLogin('auth')
+		}
+
 		document.body.style.overflow = 'hidden'
 
 	};
@@ -47,7 +56,7 @@ const Sidebar = ({ setHideBar, hideBar }: Props) => {
 				</div>
 
 				<div className={styles.columnButton}>
-					<i className="ri-user-line ri-xl" onClick={openModal}></i>
+					<i className={user.email === '' ? "ri-user-line ri-xl" : "ri-user-fill ri-xl"} onClick={openModal}></i>
 					<div className={styles.faqParent}>
 						<i className="ri-question-line ri-xl" onClick={() => { setOpenFaq(!openFaq) }} />
 						{openFaq && <Faq setOpenFaq={setOpenFaq} />}
@@ -55,7 +64,8 @@ const Sidebar = ({ setHideBar, hideBar }: Props) => {
 				</div>
 
 			</section>
-			{showLogin && <Login setShowLogin={setShowLogin} />}
+			{showLogin === 'noAuth' && <Login setShowLogin={setShowLogin} />}
+			{showLogin === 'auth' && <Profile setShowLogin={setShowLogin} />}
 		</>
 	)
 }

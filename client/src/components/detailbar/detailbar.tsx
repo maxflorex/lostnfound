@@ -1,17 +1,19 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { categories } from '../../assets/misc'
+import { getCategory } from '../../redux/FilteredCategoryslices'
 import styles from './detailbar.module.scss'
 
 type Props = {
-    setHideBar: any,
     hideBar: any
 }
 
-const DetailBar = ({ setHideBar, hideBar }: Props) => {
+const DetailBar = ({ hideBar }: Props) => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredCategories, setFilteredCategories] = useState(categories);
-    const [selectedCat, setSelectedCat] = useState(0)
+    const dispatch = useDispatch()
+    const selectedCategory = useSelector((state: any) => state.category.value)
 
 
     function filterCategoriesByName(categoriesArray: any, name: string) {
@@ -28,7 +30,7 @@ const DetailBar = ({ setHideBar, hideBar }: Props) => {
 
         const filteredCategories = filterCategoriesByName(categories, searchTerm);
         setFilteredCategories(filteredCategories);
-    };
+    }
 
     return (
         <div className={`${styles.bar} ${hideBar && styles.translate}`}>
@@ -39,8 +41,8 @@ const DetailBar = ({ setHideBar, hideBar }: Props) => {
             <ul className={styles.categories} >
                 {filteredCategories.map((category, i) => {
                     return <div key={i}>
-                        <li onClick={() => setSelectedCat(i)} className={`${selectedCat === i && styles.highlight}`}>
-                            <i className={selectedCat === i ? "ri-folder-fill" : "ri-folder-line"}></i>{category}
+                        <li onClick={() => dispatch(getCategory(category))} className={`${selectedCategory === category && styles.highlight}`}>
+                            <i className={selectedCategory === category ? "ri-folder-fill" : "ri-folder-line"}></i>{category}
                         </li>
                     </div>
                 })}

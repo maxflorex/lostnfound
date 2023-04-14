@@ -1,0 +1,147 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.profile {
+    h3 {
+        text-decoration: underline;
+        text-underline-offset: 0.4rem;
+    }
+
+    button {
+        background-color: white;
+        color: $blue;
+        position: absolute;
+        left: 2rem;
+        top: 2rem;
+
+        &:hover {
+            background-color: $orange;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    h4 {
+        padding-top: 3rem;
+    }
+}
+
+.table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 2rem 0;
+    padding: 0;
+    max-width: 40rem;
+    background-color: white;
+    border: 0.4rem solid transparent;
+    border-width: 0.4rem 0;
+    font-size: 0.8rem;
+    border: 2px solid white;
+
+    th,
+    td {
+        text-align: left;
+        padding: 1rem;
+        vertical-align: top;
+        border: 0 none;
+        border-width: 0 0.4rem;
+        color: $blue;
+
+        &:first-child {
+            border-left-width: 0.4rem;
+        }
+        &:last-child {
+            border-right-width: 0.4rem;
+        }
+
+        i {
+            color: $blue;
+            cursor: pointer;
+            &:hover {
+                color: $orange;
+            }
+        }
+    }
+
+    th {
+        background-color: $blue;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    tbody tr {
+        &:hover {
+            background-color: #f5f5f5;
+        }
+
+        &:nth-child(odd) {
+            background-color: lighten(white, 5%);
+        }
+
+        td {
+            &:first-child {
+                border-left-width: 0.4rem;
+            }
+
+            &:last-child {
+                border-right-width: 0.4rem;
+            }
+        }
+    }
+
+    thead {
+        th {
+            &:first-child {
+                border-left-width: 0.4rem;
+            }
+
+            &:last-child {
+                border-right-width: 0.4rem;
+            }
+        }
+    }
+}
+
+.close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background-color: $blue;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+        color: $orange;
+    }
+}
+
+.danger {
+    // background-color: $purple;
+    border-radius: 0.4rem;
+    width: 90%;
+    @include flexbox(row, center, center, wrap);
+    position: absolute;
+    bottom: 2rem;
+    border: 2px solid $purpleOff;
+    padding: 2rem;
+    gap: 4rem;
+
+    span {
+        cursor: pointer;
+        
+        &:first-child {
+            color: $orange;
+        }
+
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: 0.6rem;
+            color: $purpleOff;
+        }
+    }
+
+    i {
+        padding-right: 0.4rem;
+    }
+}

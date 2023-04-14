@@ -1,23 +1,14 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { categories, Item } from '../../assets/misc';
 import styles from './single.module.scss'
-
-interface Item {
-	title: string;
-	category: string;
-	where: {
-		city: string;
-		country: string;
-	};
-	when: string;
-	picture: string;
-	status: string;
-	contact: string;
-}
 
 type Props = {
 	data: Item[]
 }
 
 const Single = ({ data }: Props) => {
+	const selectedCategory = useSelector((state: any) => state.category.value)
 
 	return (
 		<>
@@ -33,7 +24,7 @@ const Single = ({ data }: Props) => {
 								<h4>{itemData.title}</h4>
 							</div>
 							<div className="flex-column">
-								<h6>Is this item yours? <span><i className="ri-phone-fill"></i>Get in touch</span></h6>
+								<h6>Is this item yours? <span><i className="ri-mail-line"></i>Get in touch</span></h6>
 							</div>
 						</div>
 					</div>

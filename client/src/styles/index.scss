@@ -101,11 +101,11 @@ label {
 }
 
 .modal {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: $blue;
     @include flexbox(column, center, center, wrap);
     color: white;

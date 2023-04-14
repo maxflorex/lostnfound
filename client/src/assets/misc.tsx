@@ -1,5 +1,18 @@
 export const categories = ['ALL', 'HOME', 'ENTERTAINMENT', 'CLOTHING', 'FAMILY', 'ELECTRONICS', 'HOBBIES', 'MISCELLANEOUS', 'VEHICLES'];
 
+export interface Item {
+	title: string;
+	category: string;
+	where: {
+		city: string;
+		country: string;
+	};
+	when: string;
+	picture: string;
+	status: string;
+	contact: string;
+}
+
 
 export const fakeData = [
     {

@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { categories, fakeData, Item } from '../../assets/misc'
+import { defaultCategory } from '../../redux/FilteredCategoryslices'
 import Items from '../items/items'
 import NewItemModal from '../newItem/newItem'
 import styles from './content.module.scss'
@@ -7,14 +10,51 @@ type Props = {}
 
 const Content = (props: Props) => {
 
+    // FILTERED BY CATEGORY
+    const selectedCategory = useSelector((state: any) => state.category.value)
+    const filteredCat = selectedCategory !== 'ALL'
+        ? fakeData.filter((item) => item.category === selectedCategory)
+        : fakeData;
+
+    const dispatch = useDispatch()
     const [addNew, setAddNew] = useState(false);
     const [sortAsc, setSortAsc] = useState(true);
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filtered, setFiltered] = useState(filteredCat);
 
     const openModal = (e: any) => {
         e.preventDefault();
         setAddNew(!addNew);
     };
+
+    const handleDefault = (e: any) => {
+        e.preventDefault()
+        dispatch(defaultCategory())
+    }
+
+    // SEARCH BY TITLE
+
+    function filterItemsByName(array: any, name: string) {
+        const filtrado = array.filter((item: Item) => {
+            return item.title.toLowerCase().includes(name.toLowerCase());
+        });
+
+        return filtrado;
+    }
+
+    const handleSearch = (event: any) => {
+        const searchTerm = event.target.value;
+        setSearchTerm(searchTerm);
+
+        const filteredCategories = filterItemsByName(filteredCat, searchTerm);
+        setFiltered(filteredCategories);
+    }
+
+    useEffect(() => {
+        setFiltered(filteredCat)
+        setSearchTerm('')
+    }, [selectedCategory])
+
 
     return (
         <>
@@ -23,12 +63,14 @@ const Content = (props: Props) => {
                 {/* TOP BAR */}
                 <div className={styles.topBar}>
                     <ul>
-                        <li><i className="ri-archive-line"></i></li>
-                        <li>All Items</li>
-                        <li><i className="ri-arrow-right-s-line"></i></li>
-                        <li>Item Collection</li>
-                        <li><i className="ri-arrow-right-s-line"></i></li>
-                        <li>Main</li>
+
+                        <li onClick={handleDefault} className={styles.clickable}><i className="ri-archive-line" />All Items</li>
+                        {selectedCategory !== 'ALL' &&
+                            <>
+                                <li><i className="ri-arrow-right-s-line"></i></li>
+                                <li>{selectedCategory}</li>
+                            </>
+                        }
                     </ul>
                     <button onClick={openModal}>{addNew ? "CLOSE FORM" : "ADD NEW"}</button>
                 </div>
@@ -40,7 +82,9 @@ const Content = (props: Props) => {
                     <div className="flex">
                         <form action="">
                             <label htmlFor="">SEARCH ITEM</label>
-                            <input type="text" aria-autocomplete='none' className={styles.searchIcon} placeholder='SEARCH ITEMS BY NAME...' />
+                            <input type="text" aria-autocomplete='none' className={styles.searchIcon} placeholder='SEARCH ITEMS BY NAME...' value={searchTerm} onChange={handleSearch} />
+
+                            <i className="ri-search-line"></i>
                         </form>
                     </div>
                     <div className={styles.sort}>
@@ -54,7 +98,7 @@ const Content = (props: Props) => {
                     </div>
                 </div>
 
-                <Items sortAsc={sortAsc} />
+                <Items sortAsc={sortAsc} filtered={filtered} />
             </div>
         </>
 

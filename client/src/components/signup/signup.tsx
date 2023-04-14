@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import styles from './signup.module.scss'
+import { createUser } from '../../api/api';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../redux/UserSlice';
 
 type Props = {
-    setSigningUp: any
+    setSigningUp: any,
+    setShowLogin:any
 }
 
-function Signup({ setSigningUp }: Props) {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [picture, setPicture] = useState(null);
+function Signup({ setSigningUp, setShowLogin }: Props) {
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        // handle sign-up logic here
-    };
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const dispatch = useDispatch()
 
     const closeModal = (e: any) => {
         if (e.target.classList.contains('dismiss')) {
@@ -24,17 +24,23 @@ function Signup({ setSigningUp }: Props) {
         }
     };
 
-    const handlePictureChange = (event: any) => {
-		const file = event.target.files[0];
-		const reader = new FileReader();
-		reader.readAsDataURL(file);
-		// reader.onload = () => {
-		// 	setFormData((prevData: any) => ({
-		// 		...prevData,
-		// 		picture: reader.result,
-		// 	}));
-		// };
-	};
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        if (name === '' || email === '' || password === '' || passwordConfirm === '') {
+            alert('Do not leave empty fields!')
+        } else if (password !== passwordConfirm) {
+            alert('Passwords do not match!')
+        } else {
+            await createUser({ name: name, email: email, password: password }).then((res: any) => {
+                dispatch(signIn({ name: res.name, email: res.email }))
+            }).finally(() => {
+                setShowLogin(false);
+                document.body.style.overflow = 'auto'
+            })
+        }
+
+    };
 
     return (
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -43,35 +49,21 @@ function Signup({ setSigningUp }: Props) {
             ></i>
             <h3>Sign Up</h3>
             <div>
-                <label htmlFor="firstName">First Name:</label>
+                <label htmlFor="name">Name:</label>
                 <input
                     type="text"
-                    id="firstName"
-                    value={firstName}
-                    onChange={(e: any) => setFirstName(e.target.value)}
+                    id="name"
+                    onChange={(e: any) => setName(e.target.value)}
+                    value={name}
                 />
             </div>
             <div>
-                <label htmlFor="lastName">Last Name:</label>
+                <label htmlFor="email">Email:</label>
                 <input
-                    type="text"
-                    id="lastName"
-                    value={lastName}
-                    onChange={(e: any) => setLastName(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="picture" className={styles.uploadImage}>Image: {setPicture === null && <i className="ri-upload-line"></i>}
-                </label>
-                <input
-                    aria-autocomplete='none'
-                    type="file"
-                    id="picture"
-                    name="picture"
-                    onChange={handlePictureChange}
-                    accept="image/*"
-                    required
-                    className={styles.upload}
+                    type="email"
+                    id="email"
+                    onChange={(e: any) => setEmail(e.target.value)}
+                    value={email}
                 />
             </div>
             <div>
@@ -79,8 +71,8 @@ function Signup({ setSigningUp }: Props) {
                 <input
                     type="password"
                     id="password"
-                    value={password}
                     onChange={(e: any) => setPassword(e.target.value)}
+                    value={password}
                 />
             </div>
             <div>
@@ -93,6 +85,7 @@ function Signup({ setSigningUp }: Props) {
                 />
             </div>
             <button type="submit">Sign Up</button>
+            <p>Already registered? <span onClick={() => setSigningUp(false)}>Login</span></p>
         </form>
     );
 }

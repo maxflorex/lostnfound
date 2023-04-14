@@ -17,6 +17,7 @@
     form {
         @include flexbox(column, space-between, flex-start, wrap);
         gap: 0.4rem;
+        position: relative;
 
         input {
             border: 2px solid $purpleOff;
@@ -37,6 +38,13 @@
                 font-size: 0.6rem;
             }
         }
+
+        i {
+            position: absolute;
+            right: 1rem;
+            bottom: 0.6rem;
+            color: $purpleOff
+        }
     }
 }
 
@@ -50,20 +58,19 @@
         cursor: pointer;
 
         &:hover {
-            color: $orange
+            color: $orange;
         }
     }
 }
 
-.searchIcon {
-    color: red;
-    &:before {
-        content: 'Search';
-        position: absolute;
-        top: 50%;
-        left: 1rem;
-        transform: translateY(-50%);
-        font-family: sans-serif;
-        background-color: red;
+.clickable {
+    cursor: pointer;
+
+    &:hover {
+        color: $orange;
+    }
+
+    i {
+        padding-right: 0.4rem;
     }
 }

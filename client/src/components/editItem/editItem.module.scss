@@ -1,0 +1,135 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.form {
+    padding: 0 3rem;
+    margin: 4rem 0;
+    width: 20rem;
+    @include flexbox(column, flex-start, flex-start, wrap);
+    border-radius: 0.4rem;
+    width: 32rem;
+
+
+
+    input {
+        border: 2px solid $purpleOff;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        padding: 0.8rem;
+        width: 100%;
+
+        &:focus {
+            border: 2px solid transparent;
+            stroke: none;
+            outline: none;
+            background-color: $purpleOff;
+        }
+
+        &::placeholder {
+            color: $purple;
+            font-size: 0.6rem;
+        }
+    }
+
+    label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding-bottom: 0.4rem;
+
+        &:not(:first-child) {
+            padding-top: 1.2rem;
+        }
+    }
+
+    img {
+        border-radius: 0.4rem;
+        // width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    button {
+        margin-top: 2rem;
+        width: 100%;
+    }
+}
+
+.title {
+    margin-bottom: 2rem;
+    @include flexbox(row, center, center, wrap);
+    gap: 0.4rem;
+    color: white;
+    width: 100%;
+    background-color: $purpleOff;
+    padding: 2rem;
+    border-radius: 0.4rem;
+}
+
+.dropdown {
+    border: 2px solid $purpleOff;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    option {
+        color: $blue;
+        font-size: 14px;
+        padding: 2rem;
+    }
+}
+
+.formParent {
+    width: 100%;
+    @include flexbox(row, center, center, wrap);
+
+
+
+    button {
+        position: static;
+        background-color: $orange;
+        color: white;
+
+        &:hover {
+            background-color: $purple;
+        }
+    }
+}
+
+.uploadImage {
+    @include flexbox(column, flex-start, center, wrap);
+
+    i {
+        padding: 1rem;
+        background-color: $orange;
+        color: white;
+        margin-top: 1rem;
+        border-radius: 0.4rem;
+        cursor: pointer;
+    }
+}
+
+.upload {
+    display: none;
+}
+
+.close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+        color: $orange;
+    }
+}

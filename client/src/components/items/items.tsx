@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import { fakeData } from '../../assets/misc'
+import { fakeData, Item } from '../../assets/misc'
 import Single from '../single/single'
 import styles from './items.module.scss'
 
 type Props = {
     sortAsc: any;
+    // filteredCat: any;
+    filtered: Item[];
 }
 
-const Items = ({ sortAsc }: Props) => {
+const Items = ({ sortAsc, filtered }: Props) => {
 
     const sortedItems = fakeData.sort((a, b) => {
         if (sortAsc) {
@@ -17,9 +18,12 @@ const Items = ({ sortAsc }: Props) => {
         }
     });
 
+    // console.log(filtered);
+    
+
     return (
         <div className={styles.itemGroup}>
-            <Single data={sortedItems} />
+            <Single data={filtered} />
         </div>
     )
 }

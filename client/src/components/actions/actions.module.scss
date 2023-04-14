@@ -1,0 +1,67 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.actions {
+    background-color: $purple;
+
+    section {
+        background-color: $blue;
+        border-radius: 0.4rem;
+        @include flexbox(column, center, center, wrap);
+        min-width: 24rem;
+        min-height: 24rem;
+        padding: 3rem;
+        border-radius: 0.4rem;
+        position: relative
+    }
+}
+
+.message {
+    @include flexbox(column, center, center, wrap);
+    text-align: center;
+    gap: 0.6rem;
+
+    h5 {
+        color: $purple;
+        width: auto;
+
+        span {
+            text-decoration: underline;
+            text-underline-offset: 0.4rem;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        color: white;
+
+        &:hover {
+            color: $orange;
+        }
+    }
+}
+
+.buttons {
+    @include flexbox(row, center, center, wrap);
+    gap: 1rem;
+    padding-top: 2rem;
+    position: relative;
+    
+    button {
+        position: static !important;
+        
+        &:first-child {
+            background-color: $orange;
+            color: white;
+
+            &:hover {
+                background-color: $purple;
+                color: $blue;
+            }
+        }
+    }
+}

@@ -7,10 +7,9 @@
     width: 20rem;
     @include flexbox(column, flex-start, flex-start, wrap);
     border-radius: 0.4rem;
-    max-width: 32rem;
+    width: 32rem;
     border: 2px solid white;
     position: relative;
-    min-height: 100wh;
 
     input {
         border: 2px solid $purpleOff;
@@ -18,8 +17,6 @@
         font-size: 1rem;
         padding: 0.8rem;
         width: 100%;
-        margin-bottom: 0.6rem;
-        margin-top: 0.2rem;
 
         &:focus {
             border: 2px solid transparent;
@@ -37,38 +34,71 @@
     label {
         font-size: 0.8rem;
         font-weight: 500;
-        color: white;
         padding-bottom: 0.4rem;
-        margin-top: 1.2rem;
+
+        &:not(:first-child) {
+            padding-top: 1.2rem;
+        }
+    }
+
+    img {
+        border-radius: 0.4rem;
+        // width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     button {
-        margin-top: 1rem;
+        margin-top: 2rem;
         width: 100%;
+    }
+}
+
+.title {
+    margin-bottom: 2rem;
+    @include flexbox(row, center, center, wrap);
+    gap: 0.4rem;
+    color: white;
+    width: 100%;
+    background-color: $purpleOff;
+    padding: 2rem;
+    border-radius: 0.4rem;
+}
+
+.dropdown {
+    border: 2px solid $purpleOff;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    padding: 0.8rem;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::-ms-expand {
+        display: none;
+    }
+
+    option {
+        color: $blue;
+        font-size: 14px;
+        padding: 2rem;
+    }
+}
+
+.formParent {
+    width: 100%;
+    @include flexbox(row, center, center, wrap);
+
+    button {
+        position: static;
         background-color: $orange;
+        color: white;
 
         &:hover {
             background-color: $purple;
-            color: $blue
         }
-    }
-
-    p {
-        margin-top: 2rem;
-
-        span {
-            text-decoration: underline;
-            text-underline-offset: 0.4rem;
-            cursor: pointer;
-
-            &:hover {
-                color: $orange
-            }
-        }
-    }
-
-    h3 {
-        padding-bottom: 1rem;
     }
 }
 
@@ -79,7 +109,6 @@
     background-color: $blue;
     border-radius: 0.4rem;
     cursor: pointer;
-    color: white;
 
     &:hover {
         color: $orange;
