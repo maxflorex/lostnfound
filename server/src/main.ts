@@ -9,10 +9,10 @@ async function bootstrap() {
   app.use(cors());
 
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Lost & Found')
+    .setDescription('Welcome to the Lost & Found API, a platform for connecting people who have lost or found items. Our API allows users to create and browse lost and found item listings, search for items based on location and category, and connect with the owners or finders of lost items.')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('lostfound')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
