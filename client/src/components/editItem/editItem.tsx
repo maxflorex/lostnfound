@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './editItem.module.scss'
 import { ItemInterface, categories } from '../../assets/misc';
+import { updateItemById } from '../../api/api';
+import { useSelector } from 'react-redux';
+import { ItemsContext } from '../../routes/Home';
+import axios from 'axios';
 
 type Props = {
     closeModal: any;
-    selectedItem: ItemInterface
+    selectedItem: ItemInterface,
+    setOpenActions: any
 
 }
 
-const EditItem = ({ closeModal, selectedItem }: Props) => {
+const EditItem = ({ closeModal, selectedItem, setOpenActions }: Props) => {
+
+    const user = useSelector((state: any) => state.user.value)
+    const { setToggleItemsChange, toggleItemsChange } = useContext(ItemsContext);
 
     const [formData, setFormData] = useState({
         title: selectedItem.title,
@@ -19,8 +27,10 @@ const EditItem = ({ closeModal, selectedItem }: Props) => {
         },
         when: selectedItem.when.slice(0, 10),
         picture: selectedItem.picture,
-        status: selectedItem.status
+        status: selectedItem.status,
+        contact: user.email
     });
+
 
     const handleChange = (event: any) => {
         const { name, value } = event.target;
@@ -40,25 +50,36 @@ const EditItem = ({ closeModal, selectedItem }: Props) => {
         }
     };
 
-    const handlePictureChange = (event: any) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setFormData((prevData: any) => ({
+    const handlePictureChange = (e: any) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', import.meta.env.VITE_PRESET_KEY)
+        axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUD_NAME}/image/upload`, formData)
+            .then((res: any) => setFormData((prevData: any) => ({
                 ...prevData,
-                picture: reader.result,
-            }));
-        };
-    };
+                picture: res.data.secure_url,
+            })))
+            .catch((err: any) => console.log(err))
+    }
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        console.log(formData);
+        updateItemById(selectedItem._id, formData).then((res) => {
+            console.log('Your item has been updated!💪');
+
+        }).catch((err) => {
+            alert('Something went wrong!')
+            console.log(err);
+        }).finally(() => {
+            setToggleItemsChange(!toggleItemsChange);
+            document.body.style.overflow = 'auto'
+            setOpenActions('')
+        })
     };
 
     return (
-        <div className={styles.formParent} onClick={closeModal}>
+        <div className={styles.formParent}>
             <i className={`ri-close-circle-fill ri-2x dismiss ${styles.close}`}
                 onClick={closeModal}
             ></i>

@@ -8,21 +8,21 @@ import { ItemInterface } from "../assets/misc"
 
 interface ItemsContextType {
 	items: ItemInterface[];
-	addNew: boolean;
-	setAddNew: (addNew: boolean) => void;
+	toggleItemsChange: boolean;
+	setToggleItemsChange: (toggleItemsChange: boolean) => void;
 }
 
 export const ItemsContext = createContext<ItemsContextType>({
 	items: [],
-	addNew: false,
-	setAddNew: () => { },
+	toggleItemsChange: false,
+	setToggleItemsChange: () => { },
 });
 
 function Home() {
 
 	const [hideBar, setHideBar] = useState(false)
 	const [items, setItems] = useState([])
-	const [addNew, setAddNew] = useState(false);
+	const [toggleItemsChange, setToggleItemsChange] = useState(false);
 
 	useEffect(() => {
 		const fetchItems = async () => {
@@ -31,11 +31,11 @@ function Home() {
 		}
 
 		fetchItems()
-	}, [addNew])
+	}, [toggleItemsChange])
 
 
 	return (
-		<ItemsContext.Provider value={{ items, addNew, setAddNew }}>
+		<ItemsContext.Provider value={{ items, toggleItemsChange, setToggleItemsChange }}>
 			<section className="main">
 				<div className="flex">
 					<Sidebar setHideBar={setHideBar} hideBar={hideBar} />

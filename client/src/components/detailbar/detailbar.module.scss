@@ -74,7 +74,7 @@
     }
 
     @include screen-sm {
-        @include flexbox(row, flex-start, flex-start, wrap);
+        @include flexbox(row, center, flex-start, wrap);
         gap:1rem
     }
 }

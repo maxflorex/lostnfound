@@ -6,17 +6,15 @@ import { createItem } from '../../api/api';
 import axios from 'axios';
 
 type Props = {
-	setAddNew: any
+	setToggleItemsChange: any
 }
 
-const NewItemModal = ({ setAddNew }: Props) => {
+const NewItemModal = ({ setToggleItemsChange }: Props) => {
 	const user = useSelector((state: any) => state.user.value)
-	const [selectedPicture, setSelectedPicture] = useState(null);
-
 
 	const closeModal = (e: any) => {
 		if (e.target.classList.contains('dismiss')) {
-			setAddNew(false);
+			setToggleItemsChange(false);
 			document.body.style.overflow = 'auto'
 		}
 	};
@@ -76,7 +74,7 @@ const NewItemModal = ({ setAddNew }: Props) => {
 			alert('Something went wrong!')
 			console.log(err);
 		}).finally(() => {
-			setAddNew(false);
+			setToggleItemsChange(false);
 			document.body.style.overflow = 'auto'
 		})
 	};

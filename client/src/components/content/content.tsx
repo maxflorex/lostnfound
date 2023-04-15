@@ -13,7 +13,7 @@ type Props = {
 
 const Content = ({ items }: Props) => {
 
-    const { setAddNew, addNew } = useContext(ItemsContext);
+    const { setToggleItemsChange, toggleItemsChange } = useContext(ItemsContext);
     const selectedCategory = useSelector((state: any) => state.category.value)
     const filteredCat = selectedCategory !== 'ALL'
         ? items.filter((item) => item.category === selectedCategory)
@@ -27,7 +27,7 @@ const Content = ({ items }: Props) => {
 
     const openModal = (e: any) => {
         e.preventDefault();
-        setAddNew(!addNew);
+        setToggleItemsChange(!toggleItemsChange);
     };
 
     const handleDefault = (e: any) => {
@@ -76,10 +76,10 @@ const Content = ({ items }: Props) => {
                             </>
                         }
                     </ul>
-                    <button onClick={openModal}>{addNew ? "CLOSE FORM" : "ADD NEW"}</button>
+                    <button onClick={openModal}>{toggleItemsChange ? "CLOSE FORM" : "ADD NEW"}</button>
                 </div>
 
-                {addNew && <NewItemModal setAddNew={setAddNew} />}
+                {toggleItemsChange && <NewItemModal setToggleItemsChange={setToggleItemsChange} />}
 
                 {/* MAIN CONTENT */}
                 <div className={styles.searchSort}>
@@ -98,11 +98,16 @@ const Content = ({ items }: Props) => {
                                 <i className={sortAsc ? "ri-arrow-down-line" : "ri-arrow-up-line"}></i>
                             </span>
                         </div>
-                        <i className="ri-layout-row-line"></i>
+                        {/* <i className="ri-layout-row-line"></i> */}
                     </div>
                 </div>
 
-                {filtered.length > 0 && <Items sortAsc={sortAsc} filtered={filtered} />}
+                {filtered.length > 0 ? <Items sortAsc={sortAsc} filtered={filtered} /> : <div className={styles.noitems}>
+                    <h3>No items</h3>
+                    {!toggleItemsChange &&
+                        <h5 onClick={() => setToggleItemsChange(!toggleItemsChange)}>Add one ➕</h5>
+                    }
+                </div>}
             </div>
         </>
 

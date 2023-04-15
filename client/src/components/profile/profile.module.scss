@@ -5,6 +5,8 @@
     h3 {
         text-decoration: underline;
         text-underline-offset: 0.4rem;
+        padding: 4rem;
+        text-align: center;
     }
 
     button {
@@ -23,6 +25,20 @@
 
     h4 {
         padding-top: 3rem;
+    }
+
+    @include screen-md {
+        max-height: 10rem;
+        overflow-y: scroll;
+
+        h3 {
+            font-size: 2rem;
+            padding-top: 4rem;
+        }
+
+        h4 {
+            font-size: 1.6rem;
+        }
     }
 }
 
@@ -93,8 +109,6 @@
                 border-right-width: 0.4rem;
             }
         }
-
-        
     }
 
     thead {
@@ -108,6 +122,11 @@
             }
         }
     }
+
+    // @include screen-md {
+    //     @include flexbox(column, center, center, wrap);
+    //     margin: 1rem;
+    // }
 }
 
 .close {
@@ -137,7 +156,7 @@
 
     span {
         cursor: pointer;
-        
+
         &:first-child {
             color: $orange;
         }
@@ -152,9 +171,25 @@
     i {
         padding-right: 0.4rem;
     }
+
+    section {
+        position: absolute;
+        top: -4rem;
+        @include flexbox(row, center, center, wrap);
+        width: 100%;
+
+        i {
+            color: $purpleOff;
+        }
+    }
+
+    @include screen-md {
+        @include flexbox(column, center, center, wrap);
+        gap: 1rem;
+    }
 }
 
 .actions {
     @include flexbox(row, center, center, wrap);
-    gap: 1rem
+    gap: 1rem;
 }

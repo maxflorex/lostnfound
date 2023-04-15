@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
 import { Item } from './item.schema';
 import { ItemService } from './item.service';
 
@@ -21,7 +21,7 @@ export class ItemController {
     return this.itemService.findOne(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async update(@Param('id') id: string, @Body() item: Item): Promise<Item> {
     return this.itemService.update(id, item);
   }

@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { categories, ItemInterface } from '../../assets/misc';
+import { ItemInterface } from '../../assets/misc';
 import styles from './single.module.scss'
 
 type Props = {
@@ -8,7 +6,6 @@ type Props = {
 }
 
 const Single = ({ data }: Props) => {
-	const selectedCategory = useSelector((state: any) => state.category.value)
 
 	return (
 		<>
@@ -25,7 +22,7 @@ const Single = ({ data }: Props) => {
 							</div>
 							<div className="flex-column">
 								<h6>Is this item yours? <span><i className="ri-mail-line"></i>
-									<a href="mailto:maxblute@gmail.com">
+									<a href={`mailto:${itemData.contact}`}>
 										Get in touch
 									</a></span></h6>
 							</div>

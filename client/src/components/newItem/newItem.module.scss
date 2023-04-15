@@ -53,6 +53,11 @@
         margin-top: 2rem;
         width: 100%;
     }
+
+    @include screen-sm {
+        margin: 1rem;
+        width: 100%;
+    }
 }
 
 .title {

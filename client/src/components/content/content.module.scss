@@ -43,7 +43,7 @@
             position: absolute;
             right: 1rem;
             bottom: 0.6rem;
-            color: $purpleOff
+            color: $purpleOff;
         }
     }
 }
@@ -72,5 +72,21 @@
 
     i {
         padding-right: 0.4rem;
+    }
+}
+
+.noitems {
+    @include flexbox(column, center, center, wrap);
+    width: 100%;
+    padding: 2rem 0;
+
+    h5 {
+        text-decoration: underline;
+        text-underline-offset: 0.6rem;
+        cursor: pointer;
+
+        &:hover {
+            color: $orange;
+        }
     }
 }

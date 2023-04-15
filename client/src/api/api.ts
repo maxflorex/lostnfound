@@ -22,7 +22,7 @@ export const deleteUser = async (userId: string) => {
     return response.data;
 }
 
-export const login = async (email: string, password:  string) => {
+export const login = async (email: string, password: string) => {
     const response = await axios.post(`${import.meta.env.VITE_API_URL}/user/login`, { email, password });
     return response.data;
 }
@@ -45,11 +45,18 @@ export const fetchItemById = async (id: string) => {
 };
 
 export const updateItemById = async (id: string, item: any) => {
-    const response = await axios.put(`${import.meta.env.VITE_API_URL}/items/${id}`, item);
+    const response = await axios.patch(`${import.meta.env.VITE_API_URL}/items/${id}`, item);
     return response.data;
 };
 
 export const deleteItemById = async (id: any) => {
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/items/${id}`);
     return response.data;
+};
+
+export const deleteAllItems = async (ids: string[]) => {
+    const responses = await Promise.all(
+        ids.map(id => axios.delete(`${import.meta.env.VITE_API_URL}/items/${id}`))
+    );
+    return responses.map(response => response.data);
 };

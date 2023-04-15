@@ -1,4 +1,3 @@
-import { Action } from '@remix-run/router'
 import { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../redux/slices/UserSlice'
@@ -8,14 +7,8 @@ import ProfileActions from '../profileActions/profileActions'
 import { ItemsContext } from '../../routes/Home'
 import { ItemInterface } from '../../assets/misc'
 
-
 type Props = {
     setShowLogin: any
-}
-
-interface ItemsContextType {
-    items: ItemInterface[];
-    addNew: boolean;
 }
 
 const Profile = ({ setShowLogin }: Props) => {
@@ -26,6 +19,7 @@ const Profile = ({ setShowLogin }: Props) => {
     const user = useSelector((state: any) => state.user.value)
     const [selectedItem, setSelectedItem] = useState([])
     const [selectedId, setSelectedId] = useState('')
+    const filteredByEmail = items.filter((item: any) => item.contact === user.email);
 
     const closeModal = (e: any) => {
         e.preventDefault()
@@ -57,8 +51,6 @@ const Profile = ({ setShowLogin }: Props) => {
         setSelectedId(id)
     }
 
-    console.log(items);
-
 
     return (
         <div className={`modal dismiss ${styles.profile}`}>
@@ -68,38 +60,44 @@ const Profile = ({ setShowLogin }: Props) => {
             ></i>
 
             <button onClick={handleLogout}>LOGOUT</button>
-            <h4>My Items</h4>
-            <table className={styles.table}>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th>Picture</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((item: ItemInterface, i: number) => (
-                        <tr key={i}>
-                            <td>{item.title}</td>
-                            <td>{item.category}</td>
-                            <td><img src={item.picture} /></td>
-                            <td>{item.status}</td>
-                            <td className={styles.actions}>
-                                <i className="ri-edit-2-line ri-2x" onClick={() => handleEditItem(item)} />
-                                <i className="ri-delete-bin-line ri-2x" onClick={() => handleDeletetItem(item._id)} />
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {filteredByEmail && filteredByEmail.length > 0 &&
+                <>
+                    <h4>My Items</h4>
 
-            {openActions !== '' && <Actions closeModal={closeModalAction} openActions={openActions} selectedId={selectedId} selectedItem={selectedItem} />}
+                    <table className={styles.table}>
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Picture</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredByEmail.map((item: ItemInterface, i: number) => (
+                                <tr key={i}>
+                                    <td>{item.title}</td>
+                                    <td><img src={item.picture} /></td>
+                                    <td>{item.status}</td>
+                                    <td className={styles.actions}>
+                                        <i className="ri-edit-2-line ri-2x" onClick={() => handleEditItem(item)} />
+                                        <i className="ri-delete-bin-line ri-2x" onClick={() => handleDeletetItem(item._id)} />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </>
+            }
+
+            {openActions !== '' && <Actions closeModal={closeModalAction} openActions={openActions} setOpenActions={setOpenActions} selectedId={selectedId} selectedItem={selectedItem} />}
             {openActionsPro !== '' && <ProfileActions closeModal={closeModalAction} openActionsPro={openActionsPro} setOpenActionsPro={setOpenActionsPro} setShowLogin={setShowLogin} />}
 
 
             <div className={styles.danger}>
+                <section>
+                    <i className="ri-spam-2-line ri-2x"></i>
+                </section>
                 <span onClick={() => setOpenActionsPro('delete-profile')}><i className="ri-user-unfollow-line"></i>Delete Profile</span>
                 <span onClick={() => setOpenActionsPro('edit-profile')}><i className="ri-settings-4-line"></i>Edit Profile</span>
                 <span onClick={() => setOpenActionsPro('delete-all')}><i className="ri-delete-bin-2-line"></i>Delete ALL Items</span>

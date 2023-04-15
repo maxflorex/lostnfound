@@ -49,8 +49,17 @@
     }
 
     button {
+        position: static !important;
         margin-top: 2rem;
         width: 100%;
+        background-color: $orange !important;
+        color: white !important;
+    }
+
+
+    @include screen-md {
+        width: auto;
+        padding: 0;
     }
 }
 
@@ -84,23 +93,6 @@
         color: $blue;
         font-size: 14px;
         padding: 2rem;
-    }
-}
-
-.formParent {
-    width: 100%;
-    @include flexbox(row, center, center, wrap);
-
-
-
-    button {
-        position: static;
-        background-color: $orange;
-        color: white;
-
-        &:hover {
-            background-color: $purple;
-        }
     }
 }
 

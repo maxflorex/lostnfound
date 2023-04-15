@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteUser } from '../../api/api'
+import { deleteAllItems, deleteUser } from '../../api/api'
 import EditProfile from '../editProfile/editProfile'
 import styles from './profileActions.module.scss'
 import { signOut } from '../../redux/slices/UserSlice'
+import { useContext } from 'react'
+import { ItemsContext } from '../../routes/Home'
 
 type Props = {
     openActionsPro: any,
@@ -13,6 +15,7 @@ type Props = {
 
 const ProfileActions = ({ openActionsPro, closeModal, setOpenActionsPro, setShowLogin }: Props) => {
     const user = useSelector((state: any) => state.user.value)
+    const { items, setToggleItemsChange, toggleItemsChange } = useContext(ItemsContext);
     const dispatch = useDispatch()
 
     const handleDeleteProfile = (e: any) => {
@@ -26,9 +29,22 @@ const ProfileActions = ({ openActionsPro, closeModal, setOpenActionsPro, setShow
         })
     }
 
+    const ids = items.map(item => item._id);
+
     const handleDeleteAllItems = (e: any) => {
         e.preventDefault()
+        deleteAllItems(ids).then(() => {
+            console.log('All items have been deleted 😥');
+            setOpenActionsPro('')
+            setShowLogin(false)
+            setToggleItemsChange(!toggleItemsChange)
+        }).catch((err) => {
+            console.log(err);
+
+        })
     }
+
+
 
     return (
         <div className={`modal ${styles.profileActions}`}>
@@ -44,7 +60,7 @@ const ProfileActions = ({ openActionsPro, closeModal, setOpenActionsPro, setShow
                             </div>
                         </div>
                     </>}
-                {openActionsPro === 'edit-profile' && <EditProfile closeModal={closeModal} setShowLogin={setShowLogin}/>}
+                {openActionsPro === 'edit-profile' && <EditProfile closeModal={closeModal} setShowLogin={setShowLogin} />}
                 {openActionsPro === 'delete-all' &&
                     <>
                         <div className={styles.message}>

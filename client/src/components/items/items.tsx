@@ -1,10 +1,9 @@
-import { fakeData, ItemInterface } from '../../assets/misc'
+import { ItemInterface } from '../../assets/misc'
 import Single from '../single/single'
 import styles from './items.module.scss'
 
 type Props = {
     sortAsc: any;
-    // filteredCat: any;
     filtered: ItemInterface[];
 }
 
@@ -16,7 +15,7 @@ const Items = ({ sortAsc, filtered }: Props) => {
         } else {
             return b.title.localeCompare(a.title);
         }
-    });
+    });    
 
     return (
         <div className={styles.itemGroup}>
