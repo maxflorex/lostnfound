@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import styles from './editItem.module.scss'
-import { categories } from '../../assets/misc';
+import { ItemInterface, categories } from '../../assets/misc';
 
 type Props = {
-    closeModal: any
+    closeModal: any;
+    selectedItem: ItemInterface
 
 }
 
-const EditItem = ({ closeModal }: Props) => {
+const EditItem = ({ closeModal, selectedItem }: Props) => {
 
     const [formData, setFormData] = useState({
-        title: "",
-        category: "",
+        title: selectedItem.title,
+        category: selectedItem.category,
         where: {
-            city: "",
-            country: ""
+            city: selectedItem.where.city,
+            country: selectedItem.where.country
         },
-        when: "",
-        picture: null,
-        status: "",
-        contact: ""
+        when: selectedItem.when.slice(0, 10),
+        picture: selectedItem.picture,
+        status: selectedItem.status
     });
 
     const handleChange = (event: any) => {
@@ -142,17 +142,6 @@ const EditItem = ({ closeModal }: Props) => {
                     <option value="LOST">Lost</option>
                     <option value="FOUND">Found</option>
                 </select>
-
-                <label htmlFor="contact">Contact:</label>
-                <input
-                    aria-autocomplete='none'
-                    type="tel"
-                    id="contact"
-                    name="contact"
-                    value={formData.contact}
-                    onChange={handleChange}
-                    required
-                />
 
                 <label htmlFor="category">Category:</label>
                 <select id="category" name="category" value={formData.category} onChange={handleChange} required className={styles.dropdown}>

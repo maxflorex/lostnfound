@@ -61,6 +61,12 @@
                 color: $orange;
             }
         }
+
+        img {
+            width: 4rem;
+            height: 4rem;
+            object-fit: cover;
+        }
     }
 
     th {
@@ -87,6 +93,8 @@
                 border-right-width: 0.4rem;
             }
         }
+
+        
     }
 
     thead {
@@ -144,4 +152,9 @@
     i {
         padding-right: 0.4rem;
     }
+}
+
+.actions {
+    @include flexbox(row, center, center, wrap);
+    gap: 1rem
 }

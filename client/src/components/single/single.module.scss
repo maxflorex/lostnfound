@@ -16,8 +16,6 @@
     @include flexbox(row, flex-start, flex-start, wrap);
     border-radius: 0.4rem;
     gap: 2rem;
-    
-
 
     @include screen-lg {
         gap: 1rem;
@@ -43,12 +41,24 @@
         i {
             padding-right: 0.2rem;
         }
+
+        a {
+            text-decoration: none;
+        }
+
+        &:hover {
+            color: $orange;
+
+            a {
+                color: $orange;
+            }
+        }
     }
 
     @include screen-lg {
         gap: 1rem;
         @include flexbox(column, center, flex-start, wrap);
-        flex: 1
+        flex: 1;
     }
 }
 

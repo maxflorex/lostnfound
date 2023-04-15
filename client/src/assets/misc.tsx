@@ -1,6 +1,7 @@
 export const categories = ['ALL', 'HOME', 'ENTERTAINMENT', 'CLOTHING', 'FAMILY', 'ELECTRONICS', 'HOBBIES', 'MISCELLANEOUS', 'VEHICLES'];
 
-export interface Item {
+export interface ItemInterface {
+    _id: string;
 	title: string;
 	category: string;
 	where: {

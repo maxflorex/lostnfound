@@ -1,20 +1,31 @@
 import { Action } from '@remix-run/router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signOut } from '../../redux/slices/UserSlice'
 import Actions from '../actions/actions'
 import styles from './profile.module.scss'
 import ProfileActions from '../profileActions/profileActions'
+import { ItemsContext } from '../../routes/Home'
+import { ItemInterface } from '../../assets/misc'
+
+
 type Props = {
     setShowLogin: any
 }
 
-const Profile = ({ setShowLogin }: Props) => {
+interface ItemsContextType {
+    items: ItemInterface[];
+    addNew: boolean;
+}
 
+const Profile = ({ setShowLogin }: Props) => {
+    const { items } = useContext(ItemsContext);
     const [openActions, setOpenActions] = useState('')
     const [openActionsPro, setOpenActionsPro] = useState('')
     const dispatch = useDispatch()
     const user = useSelector((state: any) => state.user.value)
+    const [selectedItem, setSelectedItem] = useState([])
+    const [selectedId, setSelectedId] = useState('')
 
     const closeModal = (e: any) => {
         e.preventDefault()
@@ -36,6 +47,19 @@ const Profile = ({ setShowLogin }: Props) => {
         document.body.style.overflow = 'auto'
     }
 
+    const handleEditItem = (data: any) => {
+        setOpenActions('edit')
+        setSelectedItem(data)
+    }
+
+    const handleDeletetItem = (id: string) => {
+        setOpenActions('delete')
+        setSelectedId(id)
+    }
+
+    console.log(items);
+
+
     return (
         <div className={`modal dismiss ${styles.profile}`}>
             <h3>Hi, {user.name}👋</h3>
@@ -50,34 +74,28 @@ const Profile = ({ setShowLogin }: Props) => {
                     <tr>
                         <th>Title</th>
                         <th>Category</th>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>When</th>
                         <th>Picture</th>
                         <th>Status</th>
-                        <th>Contact</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Item Title</td>
-                        <td>Item Category</td>
-                        <td>City Name</td>
-                        <td>Country Name</td>
-                        <td>Date/Time</td>
-                        <td><img src="item_picture.jpg" /></td>
-                        <td>Item Status</td>
-                        <td>Contact Info</td>
-                        <td>
-                            <i className="ri-edit-2-line ri-2x" onClick={() => setOpenActions('edit')} />
-                            <i className="ri-delete-bin-line ri-2x" onClick={() => setOpenActions('delele')} />
-                        </td>
-                    </tr>
+                    {items.map((item: ItemInterface, i: number) => (
+                        <tr key={i}>
+                            <td>{item.title}</td>
+                            <td>{item.category}</td>
+                            <td><img src={item.picture} /></td>
+                            <td>{item.status}</td>
+                            <td className={styles.actions}>
+                                <i className="ri-edit-2-line ri-2x" onClick={() => handleEditItem(item)} />
+                                <i className="ri-delete-bin-line ri-2x" onClick={() => handleDeletetItem(item._id)} />
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
 
-            {openActions !== '' && <Actions closeModal={closeModalAction} openActions={openActions} />}
+            {openActions !== '' && <Actions closeModal={closeModalAction} openActions={openActions} selectedId={selectedId} selectedItem={selectedItem} />}
             {openActionsPro !== '' && <ProfileActions closeModal={closeModalAction} openActionsPro={openActionsPro} setOpenActionsPro={setOpenActionsPro} setShowLogin={setShowLogin} />}
 
 

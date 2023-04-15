@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { fetchAllItems } from "../api/api"
 import Content from "../components/content/content"
 import DetailBar from "../components/detailbar/detailbar"
 import Footer from "../components/footer/footer"
 import Sidebar from "../components/sidebar/Sidebar"
+import { ItemInterface } from "../assets/misc"
 
-type Props = {}
+interface ItemsContextType {
+	items: ItemInterface[];
+	addNew: boolean;
+	setAddNew: (addNew: boolean) => void;
+}
 
-const Home = (props: Props) => {
+export const ItemsContext = createContext<ItemsContextType>({
+	items: [],
+	addNew: false,
+	setAddNew: () => { },
+});
+
+function Home() {
 
 	const [hideBar, setHideBar] = useState(false)
 	const [items, setItems] = useState([])
+	const [addNew, setAddNew] = useState(false);
 
 	useEffect(() => {
 		const fetchItems = async () => {
@@ -19,22 +31,20 @@ const Home = (props: Props) => {
 		}
 
 		fetchItems()
-	}, [])
+	}, [addNew])
 
-	console.log(items);
-	
 
 	return (
-		<>
+		<ItemsContext.Provider value={{ items, addNew, setAddNew }}>
 			<section className="main">
 				<div className="flex">
 					<Sidebar setHideBar={setHideBar} hideBar={hideBar} />
 					{!hideBar && <DetailBar hideBar={hideBar} />}
-					<Content />
+					<Content items={items} />
 				</div>
 			</section>
 			{/* <Footer /> */}
-		</>
+		</ItemsContext.Provider >
 	)
 }
 

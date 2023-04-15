@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { categories, Item } from '../../assets/misc';
+import { categories, ItemInterface } from '../../assets/misc';
 import styles from './single.module.scss'
 
 type Props = {
-	data: Item[]
+	data: ItemInterface[]
 }
 
 const Single = ({ data }: Props) => {
@@ -24,7 +24,10 @@ const Single = ({ data }: Props) => {
 								<h4>{itemData.title}</h4>
 							</div>
 							<div className="flex-column">
-								<h6>Is this item yours? <span><i className="ri-mail-line"></i>Get in touch</span></h6>
+								<h6>Is this item yours? <span><i className="ri-mail-line"></i>
+									<a href="mailto:maxblute@gmail.com">
+										Get in touch
+									</a></span></h6>
 							</div>
 						</div>
 					</div>
@@ -37,7 +40,7 @@ const Single = ({ data }: Props) => {
 							</div>
 							<div className="flex-column">
 								<p>Date:</p>
-								<h6>{itemData.when}</h6>
+								<h6>{itemData.when.slice(0, 10)}</h6>
 							</div>
 						</div>
 					</div>

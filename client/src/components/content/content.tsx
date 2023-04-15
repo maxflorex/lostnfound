@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { categories, fakeData, Item } from '../../assets/misc'
+import { categories, fakeData, ItemInterface } from '../../assets/misc'
 import { defaultCategory } from '../../redux/slices/FilteredCategoryslices'
 import Items from '../items/items'
 import NewItemModal from '../newItem/newItem'
 import styles from './content.module.scss'
+import { ItemsContext } from '../../routes/Home'
 
-type Props = {}
+type Props = {
+    items: ItemInterface[],
+}
 
-const Content = (props: Props) => {
+const Content = ({ items }: Props) => {
 
-    // FILTERED BY CATEGORY
+    const { setAddNew, addNew } = useContext(ItemsContext);
     const selectedCategory = useSelector((state: any) => state.category.value)
     const filteredCat = selectedCategory !== 'ALL'
-        ? fakeData.filter((item) => item.category === selectedCategory)
-        : fakeData;
+        ? items.filter((item) => item.category === selectedCategory)
+        : items;
 
     const dispatch = useDispatch()
-    const [addNew, setAddNew] = useState(false);
+
     const [sortAsc, setSortAsc] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [filtered, setFiltered] = useState(filteredCat);
@@ -35,7 +38,7 @@ const Content = (props: Props) => {
     // SEARCH BY TITLE
 
     function filterItemsByName(array: any, name: string) {
-        const filtrado = array.filter((item: Item) => {
+        const filtrado = array.filter((item: ItemInterface) => {
             return item.title.toLowerCase().includes(name.toLowerCase());
         });
 
@@ -53,7 +56,8 @@ const Content = (props: Props) => {
     useEffect(() => {
         setFiltered(filteredCat)
         setSearchTerm('')
-    }, [selectedCategory])
+    }, [selectedCategory, items])
+
 
 
     return (
@@ -98,7 +102,7 @@ const Content = (props: Props) => {
                     </div>
                 </div>
 
-                <Items sortAsc={sortAsc} filtered={filtered} />
+                {filtered.length > 0 && <Items sortAsc={sortAsc} filtered={filtered} />}
             </div>
         </>
 
