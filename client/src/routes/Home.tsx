@@ -5,6 +5,7 @@ import DetailBar from "../components/detailbar/detailbar"
 import Footer from "../components/footer/footer"
 import Sidebar from "../components/sidebar/Sidebar"
 import { ItemInterface } from "../assets/misc"
+import { log } from "console"
 
 interface ItemsContextType {
 	items: ItemInterface[];
@@ -32,7 +33,7 @@ function Home() {
 
 		fetchItems()
 	}, [toggleItemsChange])
-
+	
 
 	return (
 		<ItemsContext.Provider value={{ items, toggleItemsChange, setToggleItemsChange }}>

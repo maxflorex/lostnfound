@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.imageContainer {
+    @include flexbox(column, center, center, wrap);
+
+    img {
+        width: 80%;
+        max-height: 80%;
+        border-radius: 0.4rem;
+    }
+
+    .close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background-color: $blue;
+        border-radius: 0.4rem;
+        cursor: pointer;
+
+        &:hover {
+            color: $orange;
+        }
+    }
+}

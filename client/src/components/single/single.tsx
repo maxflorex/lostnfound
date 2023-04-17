@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { ItemInterface } from '../../assets/misc';
+import ModalImage from '../modalImage/modalImage';
 import styles from './single.module.scss'
 
 type Props = {
@@ -6,6 +8,12 @@ type Props = {
 }
 
 const Single = ({ data }: Props) => {
+	const [selectedImage, setSelectdImage] = useState('')
+
+	const handleOpenImage = (url: string) => {
+		setSelectdImage(url)
+		document.body.style.overflow = 'hidden'
+	}
 
 	return (
 		<>
@@ -14,7 +22,7 @@ const Single = ({ data }: Props) => {
 
 
 					<div className={styles.leftBlockParent}>
-						<img src={itemData.picture} alt="Item" className={styles.picture} />
+						<img src={itemData.picture} alt="Item" className={styles.picture} onClick={() => handleOpenImage(itemData.picture)} />
 						<div className={styles.leftBlock}>
 							<div className="flex-column">
 								<h6>{itemData.category}</h6>
@@ -44,6 +52,7 @@ const Single = ({ data }: Props) => {
 
 				</div>
 			})}
+			{selectedImage !== '' && <ModalImage url={selectedImage} setSelectdImage={setSelectdImage} />}
 		</>
 	)
 }
