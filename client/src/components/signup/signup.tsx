@@ -32,7 +32,8 @@ function Signup({ setSigningUp, setShowLogin }: Props) {
         } else if (password !== passwordConfirm) {
             alert('Passwords do not match!')
         } else {
-            await createUser({ name: name, email: email, password: password }).then((res: any) => {
+            await createUser({ name: name, email: email, password: password
+            }).then((res: any) => {
                 dispatch(signIn({ name: res.name, email: res.email, id: res._id }))
             }).finally(() => {
                 setShowLogin(false);
@@ -47,7 +48,7 @@ function Signup({ setSigningUp, setShowLogin }: Props) {
             <i className={`ri-close-circle-fill ri-2x dismiss ${styles.close}`}
                 onClick={closeModal}
             ></i>
-            <h3>Sign Up</h3>
+            <h3>Register</h3>
             <div>
                 <label htmlFor="name">Name:</label>
                 <input

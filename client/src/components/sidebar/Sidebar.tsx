@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Faq from '../faq/faq'
 import Login from '../login/login'
 import Profile from '../profile/profile'
@@ -15,8 +15,6 @@ const Sidebar = ({ setHideBar, hideBar }: Props) => {
 	const [showLogin, setShowLogin] = useState('')
 	const [openFaq, setOpenFaq] = useState(false)
 	const user = useSelector((state: any) => state.user.value)
-	const dispatch = useDispatch()
-
 	const openModal = (e: any) => {
 		e.preventDefault();
 		if (user.email === '') {

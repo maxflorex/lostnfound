@@ -32,10 +32,10 @@ const Actions = ({ closeModal, openActions, selectedId, selectedItem, setOpenAct
                             onClick={closeModal}
                         ></i>
                         <h4>Are you sure about this?</h4>
-                        <h5>You are about to <span>DELETE your profile</span></h5>
+                        <h5>You are about to <span>DELETE this item</span></h5>
                         <div className={styles.buttons}>
                             <button className={styles.btn} onClick={handleDeleteItem}>Yes, delete this item</button>
-                            <button>No, cancel</button>
+                            <button onClick={closeModal}>No, cancel</button>
                         </div>
                     </div>
                 </>}

@@ -106,9 +106,10 @@ label {
     top: 0;
     left: 0;
     width: 100%;
+    height: auto;
     min-height: 100vh;
     background-color: $blue;
-    @include flexbox(column, center, center, wrap);
+    @include flexbox(column, center, center, nowrap);
     color: white;
     z-index: 999;
 }

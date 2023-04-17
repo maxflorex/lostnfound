@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Content = ({ items }: Props) => {
-
+    const user = useSelector((state: any) => state.user.value)
     const { setToggleItemsChange, toggleItemsChange } = useContext(ItemsContext);
     const selectedCategory = useSelector((state: any) => state.category.value)
     const filteredCat = selectedCategory !== 'ALL'
@@ -26,8 +26,13 @@ const Content = ({ items }: Props) => {
     const [filtered, setFiltered] = useState(filteredCat);
 
     const openModal = (e: any) => {
-        e.preventDefault();
-        setToggleItemsChange(!toggleItemsChange);
+
+        if (!user.email) {
+            alert('Sign in to add new items')
+        } else {
+            e.preventDefault();
+            setToggleItemsChange(!toggleItemsChange);
+        }
     };
 
     const handleDefault = (e: any) => {
@@ -98,7 +103,6 @@ const Content = ({ items }: Props) => {
                                 <i className={sortAsc ? "ri-arrow-down-line" : "ri-arrow-up-line"}></i>
                             </span>
                         </div>
-                        {/* <i className="ri-layout-row-line"></i> */}
                     </div>
                 </div>
 

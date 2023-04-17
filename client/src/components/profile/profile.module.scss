@@ -2,11 +2,17 @@
 @import '../../styles/mixins';
 
 .profile {
+    @include flexbox(column, space-between, center, nowrap);
+    background-color: $blue;
+    height: 100%;
+    overflow-y: auto;
+
     h3 {
         text-decoration: underline;
         text-underline-offset: 0.4rem;
-        padding: 4rem;
+        padding: 4rem 0;
         text-align: center;
+        margin-top: 3rem;
     }
 
     button {
@@ -23,13 +29,8 @@
         }
     }
 
-    h4 {
-        padding-top: 3rem;
-    }
-
     @include screen-md {
-        max-height: 10rem;
-        overflow-y: scroll;
+        overflow-y: auto;
 
         h3 {
             font-size: 2rem;
@@ -45,8 +46,7 @@
 .table {
     border-collapse: collapse;
     border-spacing: 0;
-    margin: 2rem 0;
-    padding: 0;
+    margin: 2rem 1rem;
     max-width: 40rem;
     background-color: white;
     border: 0.4rem solid transparent;
@@ -123,10 +123,11 @@
         }
     }
 
-    // @include screen-md {
-    //     @include flexbox(column, center, center, wrap);
-    //     margin: 1rem;
-    // }
+    @include screen-md {
+        // @include flexbox(column, center, center, wrap);
+        margin: 1rem;
+        padding-bottom: 20rem;
+    }
 }
 
 .close {
@@ -144,15 +145,13 @@
 }
 
 .danger {
-    // background-color: $purple;
     border-radius: 0.4rem;
     width: 90%;
     @include flexbox(row, center, center, wrap);
-    position: absolute;
-    bottom: 2rem;
     border: 2px solid $purpleOff;
     padding: 2rem;
     gap: 4rem;
+    margin: 2rem 0;
 
     span {
         cursor: pointer;

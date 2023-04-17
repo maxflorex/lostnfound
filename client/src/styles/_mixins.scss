@@ -12,6 +12,12 @@
     }
 }
 
+@mixin screen-h-xs {
+    @media (min-height: 700px) {
+        @content;
+    }
+}
+
 @mixin screen-sm {
     @media (max-width: 767px) {
         @content;

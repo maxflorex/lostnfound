@@ -44,8 +44,6 @@ const ProfileActions = ({ openActionsPro, closeModal, setOpenActionsPro, setShow
         })
     }
 
-
-
     return (
         <div className={`modal ${styles.profileActions}`}>
             <section>

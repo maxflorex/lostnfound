@@ -6,6 +6,7 @@ import styles from './profile.module.scss'
 import ProfileActions from '../profileActions/profileActions'
 import { ItemsContext } from '../../routes/Home'
 import { ItemInterface } from '../../assets/misc'
+import { log } from 'console'
 
 type Props = {
     setShowLogin: any
@@ -50,7 +51,6 @@ const Profile = ({ setShowLogin }: Props) => {
         setOpenActions('delete')
         setSelectedId(id)
     }
-
 
     return (
         <div className={`modal dismiss ${styles.profile}`}>
@@ -100,7 +100,9 @@ const Profile = ({ setShowLogin }: Props) => {
                 </section>
                 <span onClick={() => setOpenActionsPro('delete-profile')}><i className="ri-user-unfollow-line"></i>Delete Profile</span>
                 <span onClick={() => setOpenActionsPro('edit-profile')}><i className="ri-settings-4-line"></i>Edit Profile</span>
-                <span onClick={() => setOpenActionsPro('delete-all')}><i className="ri-delete-bin-2-line"></i>Delete ALL Items</span>
+                {filteredByEmail.length > 0 &&
+                    <span onClick={() => setOpenActionsPro('delete-all')}><i className="ri-delete-bin-2-line"></i>Delete ALL Items</span>
+                }
             </div>
 
         </div>

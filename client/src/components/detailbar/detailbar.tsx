@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { categories } from '../../assets/misc'
 import { getCategory } from '../../redux/slices/FilteredCategoryslices'
 import styles from './detailbar.module.scss'
+import { log } from 'console'
 
 type Props = {
     hideBar: any
@@ -14,7 +15,6 @@ const DetailBar = ({ hideBar }: Props) => {
     const [filteredCategories, setFilteredCategories] = useState(categories);
     const dispatch = useDispatch()
     const selectedCategory = useSelector((state: any) => state.category.value)
-
 
     function filterCategoriesByName(categoriesArray: any, name: string) {
         const filteredCategories = categoriesArray.filter((category: string) => {
